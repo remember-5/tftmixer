@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Vue 3 i18n 示例</title>
+	<!-- Import style -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/element-plus/dist/index.css"/>
+	<!-- Import Vue 3 -->
+	<script src="//cdn.jsdelivr.net/npm/vue@3"></script>
+	<!-- Import component library -->
+	<script src="//cdn.jsdelivr.net/npm/element-plus"></script>
+	<script src="//cdn.jsdelivr.net/npm/vue-i18n@9"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+	<div class="background-image"></div>
+	<div class="background-darken"></div>
+	<h1>TFT Remix Rumble Music Mixer</h1>
+	<h2>Select Tracks to Play, Select multiple tracks to play on top of eachover to create unique combinations.</h2>
+	<div>
+		<label><strong><h4>Global Volume:</h4></strong></label>
+    <div class="slider-demo-block" style="width: 300px">
+      <el-slider v-model="globalVolume" show-input @change="setGlobalVolume"></el-slider>
+    </div>
+	</div>
+	<div class="toggle">
+		<input type="checkbox" id="realTime" @click="toggleRealTime()"/>
+		<label for="realTime">Real Time Add/Remove Tracks (longer load on play) </label>
+	</div>
+	<div class="toggle">
+		<input type="checkbox" id="repeat" @click="toggleRepeat()">
+		<label for="repeat">Repeat</label>
+	</div>
+	<div id="loadingIndicator" class="text-center" style="display: none;">
+		<div class="spinner-border text-primary" role="status">
+			<span class="visually-hidden">Loading Tracks...</span>
+		</div>
+	</div>
+	<button class="btn btn-success" @click="playSelectedTracks()">Play Selected Tracks</button>
+	<button class="btn btn-secondary" @click="stopAllTracks()">Stop All Music</button>
+	<button class="btn btn-warning" @click="randomSelectTracks()">Random Select Tracks</button>
+	<button class="btn btn-warning" @click="randomSelectEarlyTracks()">Random Select Early Tracks</button>
+	<button class="btn btn-warning" @click="randomSelectLateTracks()">Random Select Late Tracks</button>
+	<button class="btn btn-danger" @click="clearAllSelections()">Clear All Selections</button>
+	<button @click="generateShareableLink()" class="btn btn-info">Generate Shareable Link</button>
+	<button @click="tweetMix()" class="btn btn-primary"><i class="fab fa-twitter"></i> Tweet Mix</button>
+	<div class="alert alert-success" id="copyNotification" style="display:none; position: fixed; bottom: 20px; right: 20px;">
+		<strong>URL Copied to Clipboard</strong>
+	</div>
+	<hr>
+	<div class="container">
+		<div class="main-content">
+			<div class="trait-container">
+				<div class="trait" v-for="(trait, index) in traits" :key="index">
+					<img :src="trait.icon" :alt="trait.name">
+					<h3>{{ trait.name }}</h3>
+					<div v-for="track in trait.tracks" :key="track.id">
+						<input type="checkbox"
+									 :id="track.id"
+									 :name="track.id"
+									 class="track-checkbox"
+									 :class="track.class"
+									 v-model="track.checked">
+						<label :for="track.id">{{ track.label }}</label>
+						<audio :id="'audio' + track.id" :src="track.src" preload="none" loop></audio>
+						<br>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="community-presets">
+			<h3>Reddit Community Presets</h3>
+			<ul>
+				<li v-for="(preset,index) in presets" :key="index">
+					<button type="button" @click="applyPreset(preset.data)">{{ preset.name }}</button>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<hr>
+	<div class="trait">
+		<h3>Other Tracks</h3>
+		<div v-for="track in otherTracks" :key="track.id">
+			<input type="checkbox" :id="track.id" :name="track.id" :class="track.class || ''">
+			<label :for="track.id">{{ track.label }}</label>
+			<audio :id="'audio' + track.id" :src="track.src" preload="none" loop></audio>
+			<br>
+		</div>
+	</div>
+	<hr>
+</div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
