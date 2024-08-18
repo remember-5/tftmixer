@@ -1,5 +1,33 @@
 export default {
-    welcome: 'Welcome to Vue 3!',
-    changeLang: 'Change Language',
-    clickMe: 'Click Me'
+  title: 'TFT Remix Rumble Music Mixer',
+  description: 'Select Tracks to Play, Select multiple tracks to play on top of eachover to create unique combinations.',
+  volume: 'Global Volume',
+  realTime: 'Real Time Add/Remove Tracks (longer load on play)',
+  repeat: 'Repeat',
+  playSelectedTracks: 'Play Selected Tracks',
+  stopAllTracks: 'Stop All Music',
+  randomSelectTracks: 'Random Select Tracks',
+  randomSelectEarlyTracks: 'Random Select Early Tracks',
+  randomSelectLateTracks: 'Random Select Late Tracks',
+  clearAllSelections: 'Clear All Selections',
+  generateShareableLink: 'Generate Shareable Link',
+  exportSelections: 'Export Selections',
+  importSelections: 'Import',
+  traits: {
+    kda: 'KDA',
+    punk: 'Punk',
+    maestro: 'Maestro',
+    _8bit: '8 Bit',
+    country: 'Country',
+    disco: 'Disco',
+    edm: 'EDM',
+    emo: 'Emo',
+    heartsteel: 'Heartsteel',
+    hyperpop: 'Hyperpop',
+    illbeats: 'ILLBEATS',
+    jazz: 'Jazz',
+    mixMaster: 'MixMaster',
+    pentakill: 'Pentakill',
+    trueDamage: 'True Damage'
+  }
 };

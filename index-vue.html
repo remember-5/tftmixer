@@ -17,29 +17,31 @@
 <div id="app">
 	<div class="background-image"></div>
 	<div class="background-darken"></div>
-	<h1>TFT Remix Rumble Music Mixer</h1>
-	<h2>Select Tracks to Play, Select multiple tracks to play on top of eachover to create unique combinations.</h2>
+	<h1>{{ $t('title') }}</h1>
+	<h2>{{ $t('description') }}</h2>
 	<div>
-		<label><strong><h4>Global Volume:</h4></strong></label>
+		<label><strong><h4>{{ $t('volume') }}:</h4></strong></label>
     <div class="slider-demo-block" style="width: 300px">
       <el-slider v-model="globalVolume" show-input @change="setGlobalVolume"></el-slider>
     </div>
 	</div>
 	<div class="toggle">
 		<input type="checkbox" id="realTime" @click="setRealTime()"/>
-		<label for="realTime">Real Time Add/Remove Tracks (longer load on play) </label>
+		<label for="realTime">{{ $t('realTime') }} </label>
 	</div>
 	<div class="toggle">
 		<input type="checkbox" id="repeat" @click="setRepeat()">
-		<label for="repeat">Repeat</label>
+		<label for="repeat">{{ $t('repeat') }}</label>
 	</div>
-	<button class="btn btn-success" @click="playSelectedTracks()">Play Selected Tracks</button>
-	<button class="btn btn-secondary" @click="stopAllTracks()">Stop All Music</button>
-	<button class="btn btn-warning" @click="randomSelectTracks()">Random Select Tracks</button>
-	<button class="btn btn-warning" @click="randomSelectEarlyTracks()">Random Select Early Tracks</button>
-	<button class="btn btn-warning" @click="randomSelectLateTracks()">Random Select Late Tracks</button>
-	<button class="btn btn-danger" @click="clearAllSelections()">Clear All Selections</button>
-	<button @click="generateShareableLink()" class="btn btn-info">Generate Shareable Link</button>
+	<button class="btn btn-success" @click="playSelectedTracks()">{{ $t('playSelectedTracks') }}</button>
+	<button class="btn btn-secondary" @click="stopAllTracks()">{{ $t('stopAllTracks') }}</button>
+	<button class="btn btn-warning" @click="randomSelectTracks()">{{ $t('randomSelectTracks') }}</button>
+	<button class="btn btn-warning" @click="randomSelectEarlyTracks()">{{ $t('randomSelectEarlyTracks') }}</button>
+	<button class="btn btn-warning" @click="randomSelectLateTracks()">{{ $t('randomSelectLateTracks') }}</button>
+	<button class="btn btn-danger" @click="clearAllSelections()">{{ $t('clearAllSelections') }}</button>
+	<button class="btn btn-info" @click="generateShareableLink()">{{ $t('generateShareableLink') }}</button>
+	<button class="btn btn-info" @click="exportDialogVisible = true">{{ $t('exportSelections') }}</button>
+	<button class="btn btn-info" @click="importDialogVisible = true">{{ $t('importSelections') }}</button>
 <!--	<button @click="tweetMix()" class="btn btn-primary"><i class="fab fa-twitter"></i> Tweet Mix</button>-->
 	<div class="alert alert-success" id="copyNotification" style="display:none; position: fixed; bottom: 20px; right: 20px;">
 		<strong>URL Copied to Clipboard</strong>
@@ -50,17 +52,29 @@
 			<div class="trait-container">
 				<div class="trait" v-for="(trait, index) in traits" :key="index">
 					<img :src="trait.icon" :alt="trait.name">
-					<h3>{{ trait.name }}</h3>
-					<div v-for="track in trait.tracks" :key="track.id">
-						<input type="checkbox"
-									 :id="track.id"
-									 :name="track.id"
-									 :class="track.class"
-									 v-model="track.checked">
-						<label :for="track.id">{{ track.label }}</label>
-						<audio :id="'audio' + track.id" :src="track.src" preload="none" loop></audio>
-						<br>
-					</div>
+					<h3>{{ $t(trait.name) }}</h3>
+						<el-checkbox-group
+							v-for="(track, index) in trait.tracks"
+							:key="track.id"
+							v-model="trait.selectedId"
+						>
+							<el-checkbox
+								:class="track.class"
+								:id="track.id"
+								:label="track.label"
+								:value="track.id"
+								:name="track.id"
+								style="color: white"
+								@change="changeTrack(track)"
+							>
+							</el-checkbox>
+							<audio
+								:id="'audio' + track.id"
+								:src="track.src"
+								preload="none"
+								loop>
+							</audio>
+						</el-checkbox-group>
 				</div>
 			</div>
 		</div>
@@ -76,14 +90,51 @@
 	<hr>
 	<div class="trait">
 		<h3>Other Tracks</h3>
-		<div v-for="track in otherTracks" :key="track.id">
-			<input type="checkbox" :id="track.id" :name="track.id" :class="track.class || ''">
-			<label :for="track.id">{{ track.label }}</label>
-			<audio :id="'audio' + track.id" :src="track.src" preload="none" loop></audio>
+			<el-checkbox-group v-for="(track,index) in otherTracks" :key="index" v-model="selectedOtherTracks">
+				<el-checkbox
+								:class="track.class"
+								:id="track.id"
+								:label="track.label"
+								:value="track.id"
+								:name="track.id"
+								style="color: white"
+								@change="changeTrack(track)"
+				>
+				</el-checkbox>
+				<audio :id="'audio' + track.id" :src="track.src" preload="none" loop></audio>
+			</el-checkbox-group>
 			<br>
-		</div>
 	</div>
 	<hr>
+	<el-dialog
+		v-model="exportDialogVisible"
+		:title="$t('exportSelections')"
+		width="500"
+		:before-close="handleClose"
+	>
+		<span>{{ selectedTracks }}</span>
+		<template #footer>
+			<div class="dialog-footer">
+				<el-button type="primary" @click="exportDialogVisible = false">
+					Confirm
+				</el-button>
+			</div>
+		</template>
+	</el-dialog>
+	<el-dialog
+			v-model="importDialogVisible"
+			:title="$t('importSelections')"
+			width="500">
+		<el-input v-model="importText"></el-input>
+		<template #footer>
+			<div class="dialog-footer">
+				<el-button @click="importDialogVisible = false">Cancel</el-button>
+				<el-button type="primary" @click="doImport">
+					Confirm
+				</el-button>
+			</div>
+		</template>
+	</el-dialog>
 </div>
 <script type="module" src="app.js"></script>
 </body>

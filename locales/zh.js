@@ -1,5 +1,33 @@
 export default {
-    welcome: '欢迎使用 Vue 3!',
-    changeLang: '切换语言',
-    clickMe: '点击我'
+  title: 'TFT Remix Rumble 音乐混音器',
+  description: '选择要播放的曲目，在每个轨道之上选择要播放的多个曲目以创建独特的组合。',
+  volume: '音量大小',
+  realTime: '实时添加/删除曲目（播放时加载时间更长）',
+  repeat: '重复播放',
+  playSelectedTracks: '播放选择的曲目',
+  stopAllTracks: '停止所有音乐',
+  randomSelectTracks: '随机选择轨道',
+  randomSelectEarlyTracks: '随机选择早期轨道',
+  randomSelectLateTracks: '随机选择晚期轨道',
+  clearAllSelections: '清除所有选择',
+  generateShareableLink: '生成分享链接',
+  exportSelections: '导出选中',
+  importSelections: '导入',
+  traits: {
+    kda: 'KDA',
+    punk: '朋克',
+    maestro: '戏命师',
+    _8bit: '八比特',
+    country: '乡村音乐',
+    disco: '迪斯科',
+    edm: '电子舞曲',
+    emo: 'Emo',
+    heartsteel: '心之钢',
+    hyperpop: '高能流行',
+    illbeats: '大触打击乐',
+    jazz: '爵士',
+    mixMaster: '混音大师',
+    pentakill: '五杀摇滚',
+    trueDamage: '真实伤害'
+  }
 };
