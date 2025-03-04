@@ -28,6 +28,14 @@ export default {
     jazz: '爵士',
     mixMaster: '混音大师',
     pentakill: '五杀摇滚',
-    trueDamage: '真实伤害'
-  }
-};
+    trueDamage: '真实伤害',
+  },
+  about: {
+    title: '关于我们',
+    version: '版本',
+    author: '作者',
+    description: '描述',
+    content: 'TFTMixer 是一个强大的战棋游戏数据分析工具，帮助玩家做出更好的决策。',
+    alert: '欢迎使用 TFTMixer！',
+  },
+}

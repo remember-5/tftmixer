@@ -1,0 +1,535 @@
+export interface Track {
+  id: string
+  label: string
+  src: string
+  class?: string
+  checked?: boolean
+}
+
+export interface Trait {
+  name: string
+  icon: string
+  selectedId: string[]
+  tracks: Track[]
+}
+
+export const traits: Trait[] = [
+  {
+    name: 'traits.kda',
+    icon: 'icon/kda.png',
+    selectedId: [],
+    tracks: [
+      {
+        id: 'kda_early_drums',
+        label: 'early_drums',
+        src: '/tracks/kda_early_drums.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'kda_early_main',
+        label: 'early_main',
+        src: '/tracks/kda_early_main.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'kda_early_secondary',
+        label: 'early_secondary',
+        src: '/tracks/kda_early_secondary.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'kda_late_drums',
+        label: 'late_drums',
+        src: '/tracks/kda_late_drums.aac',
+        class: 'late',
+        checked: false,
+      },
+      {
+        id: 'kda_late_main',
+        label: 'late_main',
+        src: '/tracks/kda_late_main.aac',
+        class: 'late',
+        checked: false,
+      },
+      {
+        id: 'kda_late_secondary',
+        label: 'late_secondary',
+        src: '/tracks/kda_late_secondary.aac',
+        class: 'late',
+        checked: false,
+      },
+    ],
+  },
+  {
+    name: 'traits.punk',
+    icon: 'icon/punk.png',
+    selectedId: [],
+    tracks: [
+      {
+        id: 'punk_early_drums',
+        label: 'early_drums',
+        src: '/tracks/punk_early_drums.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'punk_early_main',
+        label: 'early_main',
+        src: '/tracks/punk_early_main.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'punk_late_drums',
+        label: 'late_drums',
+        src: '/tracks/punk_late_drums.aac',
+        class: 'late',
+        checked: false,
+      },
+      {
+        id: 'punk_late_main',
+        label: 'late_main',
+        src: '/tracks/punk_late_main.aac',
+        class: 'late',
+        checked: false,
+      },
+    ],
+  },
+  {
+    name: 'traits.maestro',
+    icon: 'icon/maestro.png',
+    selectedId: [],
+    tracks: [
+      {
+        id: 'maestro_early',
+        label: 'early',
+        src: '/tracks/maestro_early.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'maestro_late',
+        label: 'late',
+        src: '/tracks/maestro_late.aac',
+        class: 'late',
+        checked: false,
+      },
+    ],
+  },
+  {
+    name: 'traits._8bit',
+    icon: 'icon/8bit.png',
+    selectedId: [],
+    tracks: [
+      {
+        id: '8bit_early_drums',
+        label: 'early_drums',
+        src: '/tracks/8bit_early_drums.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: '8bit_early_main',
+        label: 'early_main',
+        src: '/tracks/8bit_early_main.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: '8bit_late_drums',
+        label: 'late_drums',
+        src: '/tracks/8bit_late_drums.aac',
+        class: 'late',
+        checked: false,
+      },
+      {
+        id: '8bit_late_main',
+        label: 'late_main',
+        src: '/tracks/8bit_late_main.aac',
+        class: 'late',
+        checked: false,
+      },
+    ],
+  },
+  {
+    name: 'traits.country',
+    icon: 'icon/country.png',
+    selectedId: [],
+    tracks: [
+      {
+        id: 'country_early_drums',
+        label: 'early_drums',
+        src: '/tracks/country_early_drums.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'country_early_main',
+        label: 'early_main',
+        src: '/tracks/country_early_main.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'country_late_drums',
+        label: 'late_drums',
+        src: '/tracks/country_late_drums.aac',
+        class: 'late',
+        checked: false,
+      },
+      {
+        id: 'country_late_main',
+        label: 'late_main',
+        src: '/tracks/country_late_main.aac',
+        class: 'late',
+        checked: false,
+      },
+    ],
+  },
+  {
+    name: 'traits.disco',
+    icon: 'icon/disco.png',
+    selectedId: [],
+    tracks: [
+      {
+        id: 'disco_early_drums',
+        label: 'early_drums',
+        src: '/tracks/disco_early_drums.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'disco_early_main',
+        label: 'early_main',
+        src: '/tracks/disco_early_main.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'disco_late_drums',
+        label: 'late_drums',
+        src: '/tracks/disco_late_drums.aac',
+        class: 'late',
+        checked: false,
+      },
+      {
+        id: 'disco_late_main',
+        label: 'late_main',
+        src: '/tracks/disco_late_main.aac',
+        class: 'late',
+        checked: false,
+      },
+    ],
+  },
+  {
+    name: 'traits.edm',
+    icon: 'icon/edm.png',
+    selectedId: [],
+    tracks: [
+      {
+        id: 'edm_early_drums',
+        label: 'early_drums',
+        src: '/tracks/edm_early_drums.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'edm_early_main',
+        label: 'early_main',
+        src: '/tracks/edm_early_main.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'edm_late_drums',
+        label: 'late_drums',
+        src: '/tracks/edm_late_drums.aac',
+        class: 'late',
+        checked: false,
+      },
+      {
+        id: 'edm_late_main',
+        label: 'late_main',
+        src: '/tracks/edm_late_main.aac',
+        class: 'late',
+        checked: false,
+      },
+    ],
+  },
+  {
+    name: 'traits.emo',
+    icon: 'icon/emo.png',
+    selectedId: [],
+    tracks: [
+      {
+        id: 'emo_early_drums',
+        label: 'early_drums',
+        src: '/tracks/emo_early_drums.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'emo_early_main',
+        label: 'early_main',
+        src: '/tracks/emo_early_main.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'emo_late_drums',
+        label: 'late_drums',
+        src: '/tracks/emo_late_drums.aac',
+        class: 'late',
+        checked: false,
+      },
+      {
+        id: 'emo_late_main',
+        label: 'late_main',
+        src: '/tracks/emo_late_main.aac',
+        class: 'late',
+        checked: false,
+      },
+    ],
+  },
+  {
+    name: 'traits.heartsteel',
+    icon: 'icon/heartsteel.png',
+    selectedId: [],
+    tracks: [
+      {
+        id: 'heartsteel_early_drums',
+        label: 'early_drums',
+        src: '/tracks/heartsteel_early_drums.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'heartsteel_early_main',
+        label: 'early_main',
+        src: '/tracks/heartsteel_early_main.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'heartsteel_early_secondary',
+        label: 'early_secondary',
+        src: '/tracks/heartsteel_early_secondary.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'heartsteel_late_drums',
+        label: 'late_drums',
+        src: '/tracks/illbeats_late.aac',
+        class: 'late',
+        checked: false,
+      },
+      {
+        id: 'heartsteel_late_main',
+        label: 'late_main',
+        src: '/tracks/heartsteel_late_main.aac',
+        class: 'late',
+        checked: false,
+      },
+      {
+        id: 'heartsteel_late_secondary',
+        label: 'late_secondary',
+        src: '/tracks/heartsteel_late_secondary.aac',
+        class: 'late',
+        checked: false,
+      },
+    ],
+  },
+  {
+    name: 'traits.hyperpop',
+    icon: 'icon/hyperpop.png',
+    selectedId: [],
+    tracks: [
+      {
+        id: 'hyperpop_early',
+        label: 'early',
+        src: '/tracks/hyperpop_early.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'hyperpop_late',
+        label: 'late',
+        src: '/tracks/hyperpop_late.aac',
+        class: 'late',
+        checked: false,
+      },
+      {
+        id: 'hyperpop_late_drums',
+        label: 'late_drums',
+        src: '/tracks/hyperpop_late_drums.aac',
+        class: 'late',
+        checked: false,
+      },
+    ],
+  },
+  {
+    name: 'traits.illbeats',
+    icon: 'icon/illbeats.png',
+    selectedId: [],
+    tracks: [
+      {
+        id: 'illbeats_early',
+        label: 'early',
+        src: '/tracks/illbeats_early.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'illbeats_late',
+        label: 'late',
+        src: '/tracks/illbeats_late.aac',
+        class: 'late',
+        checked: false,
+      },
+    ],
+  },
+  {
+    name: 'traits.jazz',
+    icon: 'icon/jazz.png',
+    selectedId: [],
+    tracks: [
+      {
+        id: 'jazz_early_main',
+        label: 'early_main',
+        src: '/tracks/jazz_early_main.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'jazz_late_main',
+        label: 'late_main',
+        src: '/tracks/jazz_late_main.aac',
+        class: 'late',
+        checked: false,
+      },
+    ],
+  },
+  {
+    name: 'traits.mixMaster',
+    icon: 'icon/mixmaster.png',
+    selectedId: [],
+    tracks: [
+      {
+        id: 'mixmaster_early',
+        label: 'early',
+        src: '/tracks/mixmaster_early.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'mixmaster_late',
+        label: 'late',
+        src: '/tracks/mixmaster_late.aac',
+        class: 'late',
+        checked: false,
+      },
+    ],
+  },
+  {
+    name: 'traits.pentakill',
+    icon: 'icon/pentakill.png',
+    selectedId: [],
+    tracks: [
+      {
+        id: 'pentakill_early_drums',
+        label: 'early_drums',
+        src: '/tracks/pentakill_early_drums.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'pentakill_early_main',
+        label: 'early_main',
+        src: '/tracks/pentakill_early_main.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'pentakill_early_secondary',
+        label: 'early_secondary',
+        src: '/tracks/pentakill_early_secondary.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'pentakill_late_drums',
+        label: 'late_drums',
+        src: '/tracks/pentakill_late_drums.aac',
+        class: 'late',
+        checked: false,
+      },
+      {
+        id: 'pentakill_late_main',
+        label: 'late_main',
+        src: '/tracks/pentakill_late_main.aac',
+        class: 'late',
+        checked: false,
+      },
+      {
+        id: 'pentakill_late_secondary',
+        label: 'late_secondary',
+        src: '/tracks/pentakill_late_secondary.aac',
+        class: 'late',
+        checked: false,
+      },
+    ],
+  },
+  {
+    name: 'traits.trueDamage',
+    icon: 'icon/truedmg.png',
+    selectedId: [],
+    tracks: [
+      {
+        id: 'truedamage_early_drums',
+        label: 'early_drums',
+        src: '/tracks/truedamage_early_drums.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'truedamage_early_main',
+        label: 'early_main',
+        src: '/tracks/truedamage_early_main.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'truedamage_early_secondary',
+        label: 'early_secondary',
+        src: '/tracks/truedamage_early_secondary.aac',
+        class: 'early',
+        checked: false,
+      },
+      {
+        id: 'truedamage_late_drums',
+        label: 'late_drums',
+        src: '/tracks/truedamage_late_drums.aac',
+        class: 'late',
+        checked: false,
+      },
+      {
+        id: 'truedamage_late_main',
+        label: 'late_main',
+        src: '/tracks/truedamage_late_main.aac',
+        class: 'late',
+        checked: false,
+      },
+      {
+        id: 'truedamage_late_secondary',
+        label: 'late_secondary',
+        src: '/tracks/truedamage_late_secondary.aac',
+        class: 'late',
+        checked: false,
+      },
+    ],
+  },
+]

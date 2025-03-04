@@ -16,8 +16,8 @@
 const { createApp } = Vue;
 const { createI18n } = VueI18n;
 // 导入语言包
-import messagesZh from "./locales/zh.js";
-import messagesEn from "./locales/en.js";
+import messagesZh from "./locales/zh.ts";
+import messagesEn from "./locales/en.ts";
 // 定义语言包
 const messages = {
   zh: messagesZh,
@@ -274,7 +274,7 @@ createApp({
         "truedamage_late_main",
         "truedamage_late_secondary",
       ],
-      selectedTracks: [], // 选中的轨道
+      selectedTracks: [],
       context: new (window.AudioContext || window.webkitAudioContext)(),
       sourceArray: [],
       audioGainArray: [],

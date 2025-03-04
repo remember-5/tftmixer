@@ -25,7 +25,7 @@ fs.readdir("tracks", function (err, files) {
   htmlText += htmlEnd;
     jsText += jsEnd;
 
-    fs.writeFile('index.html', htmlText, err => {
+    fs.writeFile('index-old.html', htmlText, err => {
       if (err) {
         console.error(err);
       }

@@ -1,6 +1,7 @@
 export default {
   title: 'TFT Remix Rumble Music Mixer',
-  description: 'Select Tracks to Play, Select multiple tracks to play on top of eachover to create unique combinations.',
+  description:
+    'Select Tracks to Play, Select multiple tracks to play on top of eachover to create unique combinations.',
   volume: 'Global Volume',
   realTime: 'Real Time Add/Remove Tracks (longer load on play)',
   repeat: 'Repeat',
@@ -28,6 +29,6 @@ export default {
     jazz: 'Jazz',
     mixMaster: 'MixMaster',
     pentakill: 'Pentakill',
-    trueDamage: 'True Damage'
-  }
-};
+    trueDamage: 'True Damage',
+  },
+}
