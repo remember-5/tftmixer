@@ -25,13 +25,17 @@ function MixerPage() {
         </section>
 
         <div className="command-deck-layout">
-          <aside className="command-deck-column">
+          <aside aria-label="Mixer command deck" className="command-deck-column">
             <MixerControls />
           </aside>
 
-          <section className="workspace-column">
-            <PresetList presets={presets} />
-            <TraitGrid traits={traits} />
+          <section aria-label="Mixer workspace" className="workspace-column">
+            <section aria-label="Preset workspace" className="workspace-presets">
+              <PresetList presets={presets} />
+            </section>
+            <section aria-label="Trait grid workspace" className="workspace-traits">
+              <TraitGrid traits={traits} />
+            </section>
           </section>
         </div>
 

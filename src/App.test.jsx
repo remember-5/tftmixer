@@ -41,12 +41,12 @@ describe('App', () => {
     const fakePlayer = createFakePlayer();
     render(<App player={fakePlayer} />);
 
-    const presetHeading = screen.getByText('Reddit Community Presets');
-    const firstTraitHeading = screen.getByText('KDA');
+    const workspace = screen.getByRole('region', { name: 'Mixer workspace' });
+    const presetWorkspace = screen.getByRole('region', { name: 'Preset workspace' });
+    const traitWorkspace = screen.getByRole('region', { name: 'Trait grid workspace' });
+    const workspaceChildren = Array.from(workspace.children);
 
-    expect(
-      presetHeading.compareDocumentPosition(firstTraitHeading) & Node.DOCUMENT_POSITION_FOLLOWING
-    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(workspaceChildren.indexOf(presetWorkspace)).toBeLessThan(workspaceChildren.indexOf(traitWorkspace));
   });
 
   it('restores selected tracks from the selectedTracks query string', () => {
