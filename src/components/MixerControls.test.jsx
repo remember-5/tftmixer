@@ -66,6 +66,18 @@ describe('MixerControls', () => {
     expect(screen.getByText('URL Copied to Clipboard')).toBeInTheDocument();
   });
 
+  it('uses non-label containers for switch rows', () => {
+    const store = createMixerStore({ player: createFakePlayer() });
+    const { container } = render(
+      <MixerStoreProvider store={store}>
+        <MixerControls />
+      </MixerStoreProvider>
+    );
+
+    expect(container.querySelectorAll('label.deck-toggle-row')).toHaveLength(0);
+    expect(container.querySelectorAll('.deck-toggle-row')).toHaveLength(2);
+  });
+
   it('routes user actions through the mixer store', async () => {
     const player = createFakePlayer();
     const clipboard = {

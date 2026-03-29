@@ -73,7 +73,7 @@ export default function MixerControls() {
             />
           </div>
           <div className="deck-toggle-stack">
-            <label className="deck-toggle-row">
+            <div className="deck-toggle-row">
               <span>
                 <strong id={realtimeLabelId}>Real Time Add/Remove Tracks (longer load on play)</strong>
                 <small id={realtimeDescriptionId}>Keep the session open while toggling tracks.</small>
@@ -84,14 +84,14 @@ export default function MixerControls() {
                 checked={isRealtimeEnabled}
                 onCheckedChange={setRealtimeEnabled}
               />
-            </label>
-            <label className="deck-toggle-row">
+            </div>
+            <div className="deck-toggle-row">
               <span>
                 <strong id={repeatLabelId}>Repeat</strong>
                 <small id={repeatDescriptionId}>Loop the active loaded session.</small>
               </span>
               <Switch aria-describedby={repeatDescriptionId} aria-labelledby={repeatLabelId} checked={isRepeatEnabled} onCheckedChange={setRepeatEnabled} />
-            </label>
+            </div>
           </div>
         </section>
 
