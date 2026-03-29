@@ -1,4 +1,3 @@
-import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
@@ -41,14 +40,7 @@ function TrackRow({ onToggleTrack, selectedTrackIdSet, track, traitName }: Track
         checked={trackSelected}
         onCheckedChange={() => onToggleTrack(track.id)}
       />
-      <span className="flex min-w-0 flex-1 items-center justify-between gap-3">
-        <span className="truncate text-[13px] text-zinc-100">{track.label}</span>
-        {track.phase ? (
-          <Badge className="track-phase-badge" variant="secondary">
-            {track.phase}
-          </Badge>
-        ) : null}
-      </span>
+      <span className="truncate text-[13px] text-zinc-100">{track.label}</span>
     </label>
   );
 }

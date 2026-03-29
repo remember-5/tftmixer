@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { type ReactNode, useId } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,6 +6,45 @@ import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import type { MixerControlsViewModel } from './mixerControls.selectors';
+
+interface DeckSectionProps {
+  children: ReactNode;
+  description: string;
+  title: string;
+}
+
+interface ToggleRowProps {
+  checked: boolean;
+  description: string;
+  descriptionId: string;
+  label: string;
+  labelId: string;
+  onCheckedChange: (checked: boolean) => void;
+}
+
+function DeckSection({ children, description, title }: DeckSectionProps) {
+  return (
+    <section className="deck-section">
+      <div className="deck-section-heading">
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </div>
+      {children}
+    </section>
+  );
+}
+
+function ToggleRow({ checked, description, descriptionId, label, labelId, onCheckedChange }: ToggleRowProps) {
+  return (
+    <div className="deck-toggle-row">
+      <span>
+        <strong id={labelId}>{label}</strong>
+        <small id={descriptionId}>{description}</small>
+      </span>
+      <Switch aria-describedby={descriptionId} aria-labelledby={labelId} checked={checked} onCheckedChange={onCheckedChange} />
+    </div>
+  );
+}
 
 export default function MixerControlsView({
   clearSelection,
@@ -35,11 +74,7 @@ export default function MixerControlsView({
         <CardDescription>Dial in the session, then build a mix from presets or trait layers.</CardDescription>
       </CardHeader>
       <CardContent className="control-deck-content">
-        <section className="deck-section">
-          <div className="deck-section-heading">
-            <h3>Playback</h3>
-            <p>Start or stop the current mix instantly.</p>
-          </div>
+        <DeckSection description="Start or stop the current mix instantly." title="Playback">
           <div className="deck-actions deck-actions-primary">
             <Button onClick={playSelection} type="button">
               Play Selected Tracks
@@ -50,17 +85,13 @@ export default function MixerControlsView({
           </div>
           {isLoading ? (
             <Alert className="deck-status" role="status">
-              <AlertDescription>Loading Tracks...</AlertDescription>
+              <AlertDescription className="deck-status-description">Loading Tracks...</AlertDescription>
             </Alert>
           ) : null}
-        </section>
+        </DeckSection>
         <Separator className="deck-divider" decorative={false} />
 
-        <section className="deck-section">
-          <div className="deck-section-heading">
-            <h3>Session</h3>
-            <p>Adjust volume and live session behavior.</p>
-          </div>
+        <DeckSection description="Adjust volume and live session behavior." title="Session">
           <div className="deck-slider-block">
             <div className="deck-slider-label">
               <span>Global Volume</span>
@@ -76,39 +107,27 @@ export default function MixerControlsView({
             />
           </div>
           <div className="deck-toggle-stack">
-            <div className="deck-toggle-row">
-              <span>
-                <strong id={realtimeLabelId}>Real Time Add/Remove Tracks (longer load on play)</strong>
-                <small id={realtimeDescriptionId}>Keep the session open while toggling tracks.</small>
-              </span>
-              <Switch
-                aria-describedby={realtimeDescriptionId}
-                aria-labelledby={realtimeLabelId}
-                checked={isRealtimeEnabled}
-                onCheckedChange={setRealtimeEnabled}
-              />
-            </div>
-            <div className="deck-toggle-row">
-              <span>
-                <strong id={repeatLabelId}>Repeat</strong>
-                <small id={repeatDescriptionId}>Loop the active loaded session.</small>
-              </span>
-              <Switch
-                aria-describedby={repeatDescriptionId}
-                aria-labelledby={repeatLabelId}
-                checked={isRepeatEnabled}
-                onCheckedChange={setRepeatEnabled}
-              />
-            </div>
+            <ToggleRow
+              checked={isRealtimeEnabled}
+              description="Keep the session open while toggling tracks."
+              descriptionId={realtimeDescriptionId}
+              label="Real Time Add/Remove Tracks (longer load on play)"
+              labelId={realtimeLabelId}
+              onCheckedChange={setRealtimeEnabled}
+            />
+            <ToggleRow
+              checked={isRepeatEnabled}
+              description="Loop the active loaded session."
+              descriptionId={repeatDescriptionId}
+              label="Repeat"
+              labelId={repeatLabelId}
+              onCheckedChange={setRepeatEnabled}
+            />
           </div>
-        </section>
+        </DeckSection>
         <Separator className="deck-divider" decorative={false} />
 
-        <section className="deck-section">
-          <div className="deck-section-heading">
-            <h3>Utilities</h3>
-            <p>Randomize, reset, and share the current mix.</p>
-          </div>
+        <DeckSection description="Randomize, reset, and share the current mix." title="Utilities">
           <div className="deck-actions deck-actions-utility">
             <Button onClick={() => randomizeSelection()} type="button" variant="outline">
               Random All
@@ -135,7 +154,7 @@ export default function MixerControlsView({
               <AlertDescription>Share the current selection or post it directly.</AlertDescription>
             </Alert>
           ) : null}
-        </section>
+        </DeckSection>
       </CardContent>
     </Card>
   );

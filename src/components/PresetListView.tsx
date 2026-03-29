@@ -13,8 +13,8 @@ export default function PresetListView({ onSelectPreset, presetItems }: PresetLi
     <section>
       <Card className="preset-shelf-card gap-0 py-0">
         <CardHeader className="preset-shelf-header">
-          <CardTitle>Reddit Community Presets</CardTitle>
-          <CardDescription>Start from a community mix, then tweak the layers below.</CardDescription>
+          <CardTitle className="preset-shelf-title">Reddit Community Presets</CardTitle>
+          <CardDescription className="preset-shelf-description">Start from a community mix, then tweak the layers below.</CardDescription>
         </CardHeader>
 
         <div className="preset-shelf-content">

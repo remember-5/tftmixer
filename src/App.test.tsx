@@ -89,4 +89,10 @@ describe('App', () => {
 
     expect(within(commandDeck).getAllByRole('separator')).toHaveLength(2);
   });
+
+  it('does not render early or late phase badges inside the trait grid', () => {
+    const fakePlayer = createFakePlayer();
+    const { container } = render(<App player={fakePlayer} />);
+    expect(container.querySelectorAll('.track-phase-badge')).toHaveLength(0);
+  });
 });
