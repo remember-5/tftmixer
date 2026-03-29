@@ -69,7 +69,7 @@ describe('App', () => {
     const fakePlayer = createFakePlayer();
     render(<App player={fakePlayer} />);
 
-    fireEvent.click(screen.getByRole('checkbox', { name: 'Real Time Add/Remove Tracks (longer load on play)' }));
+    fireEvent.click(screen.getByRole('switch', { name: 'Real Time Add/Remove Tracks (longer load on play)' }));
     fireEvent.click(screen.getByRole('button', { name: 'Play Selected Tracks' }));
 
     await waitFor(() => {
@@ -90,7 +90,7 @@ describe('App', () => {
     const fakePlayer = createFakePlayer();
     render(<App player={fakePlayer} />);
 
-    fireEvent.click(screen.getByRole('checkbox', { name: 'Repeat' }));
+    fireEvent.click(screen.getByRole('switch', { name: 'Repeat' }));
 
     expect(fakePlayer.setRepeatEnabled).toHaveBeenCalledWith(true);
   });

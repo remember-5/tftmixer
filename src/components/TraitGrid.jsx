@@ -1,31 +1,50 @@
-function TraitCard({ selection, trait }) {
+import { Checkbox } from '@/components/ui/checkbox';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useMixerStore } from '../store/MixerStoreContext.jsx';
+
+function TraitCard({ trait }) {
+  const selectedTrackIds = useMixerStore((state) => state.selectedTrackIds);
+  const toggleTrack = useMixerStore((state) => state.toggleTrack);
+
   return (
-    <div className="trait">
-      {trait.icon ? <img alt={trait.name} src={trait.icon} /> : null}
-      <h3>{trait.name}</h3>
-      {trait.tracks.map((entry) => (
-        <div className="track-row" key={entry.id}>
-          <input
-            aria-label={`${trait.name} ${entry.label}`}
-            checked={selection.isTrackSelected(entry.id)}
-            className={entry.phase ?? undefined}
-            id={entry.id}
-            name={entry.id}
-            onChange={() => selection.toggleTrack(entry.id)}
-            type="checkbox"
-          />
-          <label htmlFor={entry.id}>{entry.label}</label>
+    <Card className="trait-card border-white/10 bg-white/6 text-white shadow-xl backdrop-blur-sm">
+      <CardHeader className="gap-3 border-b border-white/8 pb-4">
+        <div className="flex items-center gap-3">
+          {trait.icon ? <img alt={trait.name} className="size-12 rounded-2xl border border-white/12 bg-black/25 p-1" src={trait.icon} /> : null}
+          <div>
+            <CardTitle className="text-lg text-white">{trait.name}</CardTitle>
+            <p className="text-xs uppercase tracking-[0.24em] text-zinc-400">Trait Tracks</p>
+          </div>
         </div>
+      </CardHeader>
+      <CardContent className="space-y-2">
+      {trait.tracks.map((entry) => (
+        <label className="track-row rounded-xl border border-white/8 bg-black/20 px-3 py-2 transition hover:border-white/16 hover:bg-white/8" key={entry.id}>
+          <Checkbox
+            aria-label={`${trait.name} ${entry.label}`}
+            checked={selectedTrackIds.includes(entry.id)}
+            onCheckedChange={() => toggleTrack(entry.id)}
+          />
+          <span className="flex min-w-0 flex-1 items-center justify-between gap-3">
+            <span className="truncate text-sm text-zinc-100">{entry.label}</span>
+            {entry.phase ? (
+              <span className="rounded-full border border-white/8 bg-white/6 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
+                {entry.phase}
+              </span>
+            ) : null}
+          </span>
+        </label>
       ))}
-    </div>
+      </CardContent>
+    </Card>
   );
 }
 
-export default function TraitGrid({ selection, traits }) {
+export default function TraitGrid({ traits }) {
   return (
     <div className="trait-container">
       {traits.map((trait) => (
-        <TraitCard key={trait.id} selection={selection} trait={trait} />
+        <TraitCard key={trait.id} trait={trait} />
       ))}
     </div>
   );
