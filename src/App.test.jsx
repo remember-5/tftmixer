@@ -22,6 +22,21 @@ describe('App', () => {
     });
   });
 
+  it('does not render the OfficiallySp top link', () => {
+    const fakePlayer = createFakePlayer();
+    render(<App player={fakePlayer} />);
+
+    expect(screen.queryByLabelText('Part of OfficiallySp - More projects')).not.toBeInTheDocument();
+  });
+
+  it('does not render the legacy notice banners', () => {
+    const fakePlayer = createFakePlayer();
+    render(<App player={fakePlayer} />);
+
+    expect(screen.queryByText('Set 10 Is Back')).not.toBeInTheDocument();
+    expect(screen.queryByText('We are moving')).not.toBeInTheDocument();
+  });
+
   it('restores selected tracks from the selectedTracks query string', () => {
     const fakePlayer = createFakePlayer();
     window.history.pushState({}, '', '/?selectedTracks=kda_late_main,punk_late_main.');

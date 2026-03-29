@@ -1,4 +1,4 @@
-function TraitCard({ onToggle, selectedTrackSet, trait }) {
+function TraitCard({ selection, trait }) {
   return (
     <div className="trait">
       {trait.icon ? <img alt={trait.name} src={trait.icon} /> : null}
@@ -7,11 +7,11 @@ function TraitCard({ onToggle, selectedTrackSet, trait }) {
         <div className="track-row" key={entry.id}>
           <input
             aria-label={`${trait.name} ${entry.label}`}
-            checked={selectedTrackSet.has(entry.id)}
+            checked={selection.isTrackSelected(entry.id)}
             className={entry.phase ?? undefined}
             id={entry.id}
             name={entry.id}
-            onChange={() => onToggle(entry.id)}
+            onChange={() => selection.toggleTrack(entry.id)}
             type="checkbox"
           />
           <label htmlFor={entry.id}>{entry.label}</label>
@@ -21,13 +21,11 @@ function TraitCard({ onToggle, selectedTrackSet, trait }) {
   );
 }
 
-export default function TraitGrid({ selectedTrackIds, traits, onToggleTrack }) {
-  const selectedTrackSet = new Set(selectedTrackIds);
-
+export default function TraitGrid({ selection, traits }) {
   return (
     <div className="trait-container">
       {traits.map((trait) => (
-        <TraitCard key={trait.id} onToggle={onToggleTrack} selectedTrackSet={selectedTrackSet} trait={trait} />
+        <TraitCard key={trait.id} selection={selection} trait={trait} />
       ))}
     </div>
   );

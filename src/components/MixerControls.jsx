@@ -1,21 +1,8 @@
-export default function MixerControls({
-  copyNoticeVisible,
-  globalVolume,
-  isLoading,
-  isRealtimeEnabled,
-  isRepeatEnabled,
-  onClear,
-  onCopyLink,
-  onPlay,
-  onRandomAll,
-  onRandomEarly,
-  onRandomLate,
-  onRealtimeToggle,
-  onRepeatToggle,
-  onStop,
-  onTweet,
-  onVolumeChange
-}) {
+export default function MixerControls({ actions, state }) {
+  const { clearSelection, copyShareLink, playSelection, randomizeAll, randomizeEarly, randomizeLate, setRealtimeEnabled, setRepeatEnabled, setVolume, stopPlayback, tweetMix } =
+    actions;
+  const { copyNoticeVisible, globalVolume, isLoading, isRealtimeEnabled, isRepeatEnabled } = state;
+
   return (
     <>
       <div>
@@ -29,18 +16,18 @@ export default function MixerControls({
           max="1"
           min="0"
           name="volume"
-          onChange={(event) => onVolumeChange(Number(event.target.value))}
+          onChange={(event) => setVolume(Number(event.target.value))}
           step="0.01"
           type="range"
           value={globalVolume}
         />
       </div>
       <div className="toggle">
-        <input checked={isRealtimeEnabled} id="realTime" onChange={(event) => onRealtimeToggle(event.target.checked)} type="checkbox" />
+        <input checked={isRealtimeEnabled} id="realTime" onChange={(event) => setRealtimeEnabled(event.target.checked)} type="checkbox" />
         <label htmlFor="realTime">Real Time Add/Remove Tracks (longer load on play)</label>
       </div>
       <div className="toggle">
-        <input checked={isRepeatEnabled} id="repeat" onChange={(event) => onRepeatToggle(event.target.checked)} type="checkbox" />
+        <input checked={isRepeatEnabled} id="repeat" onChange={(event) => setRepeatEnabled(event.target.checked)} type="checkbox" />
         <label htmlFor="repeat">Repeat</label>
       </div>
       {isLoading ? (
@@ -51,28 +38,28 @@ export default function MixerControls({
         </div>
       ) : null}
       <div className="button-row">
-        <button className="btn btn-success" onClick={onPlay} type="button">
+        <button className="btn btn-success" onClick={playSelection} type="button">
           Play Selected Tracks
         </button>
-        <button className="btn btn-secondary" onClick={onStop} type="button">
+        <button className="btn btn-secondary" onClick={stopPlayback} type="button">
           Stop All Music
         </button>
-        <button className="btn btn-warning" onClick={onRandomAll} type="button">
+        <button className="btn btn-warning" onClick={randomizeAll} type="button">
           Random Select Tracks
         </button>
-        <button className="btn btn-warning" onClick={onRandomEarly} type="button">
+        <button className="btn btn-warning" onClick={randomizeEarly} type="button">
           Random Select Early Tracks
         </button>
-        <button className="btn btn-warning" onClick={onRandomLate} type="button">
+        <button className="btn btn-warning" onClick={randomizeLate} type="button">
           Random Select Late Tracks
         </button>
-        <button className="btn btn-danger" onClick={onClear} type="button">
+        <button className="btn btn-danger" onClick={clearSelection} type="button">
           Clear All Selections
         </button>
-        <button className="btn btn-info" onClick={onCopyLink} type="button">
+        <button className="btn btn-info" onClick={copyShareLink} type="button">
           Generate Shareable Link
         </button>
-        <button className="btn btn-primary" onClick={onTweet} type="button">
+        <button className="btn btn-primary" onClick={tweetMix} type="button">
           <i aria-hidden="true" className="fab fa-twitter" /> Tweet Mix
         </button>
       </div>

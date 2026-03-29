@@ -28,6 +28,7 @@ export function useMixerSelection({
   search = window.location.search
 }) {
   const [selectedTrackIds, setSelectedTrackIds] = useState(() => restoreSelectedTracks(search, lookup));
+  const selectedTrackSet = new Set(selectedTrackIds);
 
   function commitSelection(nextSelectionOrUpdater) {
     setSelectedTrackIds((currentSelection) => {
@@ -61,6 +62,9 @@ export function useMixerSelection({
   return {
     applySelection: commitSelection,
     clearSelection,
+    isTrackSelected(trackId) {
+      return selectedTrackSet.has(trackId);
+    },
     randomizeSelection,
     selectedTrackIds,
     toggleTrack

@@ -1,4 +1,11 @@
 import { trackLookup } from '../data/catalog.js';
+import {
+  cloneSessionForRestart,
+  createPlaybackSession,
+  getLoadedTrackIds,
+  normalizeSelectedTrackIds,
+  shouldRepeatPlayback
+} from './audioMixerSession.js';
 
 function getDefaultAudioContextCtor() {
   return window.AudioContext || window.webkitAudioContext;
@@ -89,16 +96,6 @@ export function createAudioMixerPlayer({
     return trackState;
   }
 
-  function allSelectedLoadedTracksEnded() {
-    const selectedLoadedTrackIds = session.loadedTrackIds.filter((trackId) => session.selectedTrackIds.has(trackId));
-
-    if (selectedLoadedTrackIds.length === 0) {
-      return false;
-    }
-
-    return selectedLoadedTrackIds.every((trackId) => session.trackStates.get(trackId)?.ended === true);
-  }
-
   function startPlaybackCycle() {
     const startTime = ensureContext().currentTime + 0.25;
     session.trackStates = new Map();
@@ -110,24 +107,17 @@ export function createAudioMixerPlayer({
   }
 
   function maybeRepeat() {
-    if (!session || !session.isRepeatEnabled) {
+    if (!shouldRepeatPlayback(session)) {
       return;
     }
 
-    if (!allSelectedLoadedTracksEnded()) {
-      return;
-    }
-
-    const previousSession = session;
+    const previousSession = cloneSessionForRestart(session);
     stopActiveSources();
     if (!masterGainNode) {
       return;
     }
 
-    session = {
-      ...previousSession,
-      trackStates: new Map()
-    };
+    session = previousSession;
     startPlaybackCycle();
   }
 
@@ -136,7 +126,7 @@ export function createAudioMixerPlayer({
       return;
     }
 
-    session.selectedTrackIds = new Set(selectedTrackIds.filter((trackId) => availableTrackMap.has(trackId)));
+    session.selectedTrackIds = new Set(normalizeSelectedTrackIds(selectedTrackIds, availableTrackMap));
 
     if (!session.isRealtimeEnabled) {
       return;
@@ -156,10 +146,12 @@ export function createAudioMixerPlayer({
     async play({ isRealtimeEnabled, isRepeatEnabled, selectedTrackIds, volume }) {
       currentVolume = volume;
 
-      const validSelectedTrackIds = selectedTrackIds.filter((trackId) => availableTrackMap.has(trackId));
-      const loadedTrackIds = isRealtimeEnabled
-        ? availableTracks.map((track) => track.id)
-        : validSelectedTrackIds;
+      const validSelectedTrackIds = normalizeSelectedTrackIds(selectedTrackIds, availableTrackMap);
+      const loadedTrackIds = getLoadedTrackIds({
+        availableTracks,
+        isRealtimeEnabled,
+        selectedTrackIds: validSelectedTrackIds
+      });
 
       stopActiveSources();
 
@@ -175,13 +167,12 @@ export function createAudioMixerPlayer({
 
       await Promise.all(loadedTrackIds.map((trackId) => loadBuffer(availableTrackMap.get(trackId))));
 
-      session = {
+      session = createPlaybackSession({
         isRealtimeEnabled,
         isRepeatEnabled,
         loadedTrackIds,
-        selectedTrackIds: new Set(validSelectedTrackIds),
-        trackStates: new Map()
-      };
+        selectedTrackIds: validSelectedTrackIds
+      });
 
       startPlaybackCycle();
     },
