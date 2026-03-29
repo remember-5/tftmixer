@@ -1,4 +1,4 @@
-import { createContext, type ReactNode, useContext, useRef } from 'react';
+import { createContext, type ReactNode, useContext, useState } from 'react';
 import { useStore } from 'zustand';
 import { createMixerStore } from './createMixerStore';
 import type { AudioMixerPlayer } from '@/types/mixer';
@@ -15,13 +15,9 @@ export function MixerStoreProvider({
   player?: AudioMixerPlayer;
   store?: MixerStore;
 }) {
-  const storeRef = useRef(store ?? null);
+  const [storeValue] = useState<MixerStore>(() => store ?? createMixerStore({ player }));
 
-  if (storeRef.current === null) {
-    storeRef.current = createMixerStore({ player });
-  }
-
-  return <MixerStoreContext.Provider value={storeRef.current}>{children}</MixerStoreContext.Provider>;
+  return <MixerStoreContext.Provider value={storeValue}>{children}</MixerStoreContext.Provider>;
 }
 
 export function useMixerStore<T>(selector: (state: MixerState) => T): T {

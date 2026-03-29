@@ -1,3 +1,5 @@
+import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components/ui/card';
 import MixerControls from './components/MixerControls';
 import PresetList from './components/PresetList';
 import TraitGrid from './components/TraitGrid';
@@ -13,15 +15,21 @@ function MixerPage() {
       <div className="page-aurora" />
       <div className="page-scrim" />
       <main className="page-frame">
-        <section className="hero-panel">
-          <p className="hero-kicker">Remix Rumble Mixer</p>
-          <div className="hero-copy">
-            <div>
-              <h1>TFT Remix Rumble Music Mixer</h1>
-              <h2>Select tracks to play. Layer multiple tracks together to create unique combinations.</h2>
+        <section className="hero-shell">
+          <Card className="hero-panel gap-0 py-0">
+            <div className="hero-panel-content">
+              <p className="hero-kicker">Remix Rumble Mixer</p>
+              <div className="hero-copy">
+                <div>
+                  <h1>TFT Remix Rumble Music Mixer</h1>
+                  <h2>Select tracks to play. Layer multiple tracks together to create unique combinations.</h2>
+                </div>
+                <Badge className="hero-badge" variant="secondary">
+                  Live layering, presets, share links
+                </Badge>
+              </div>
             </div>
-            <div className="hero-badge">Live layering, presets, share links</div>
-          </div>
+          </Card>
         </section>
 
         <div className="command-deck-layout">

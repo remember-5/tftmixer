@@ -1,5 +1,6 @@
+import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { isTrackSelected, isTraitSelected } from './traitGrid.helpers';
 import type { Track, Trait } from '@/types/mixer';
@@ -43,9 +44,9 @@ function TrackRow({ onToggleTrack, selectedTrackIdSet, track, traitName }: Track
       <span className="flex min-w-0 flex-1 items-center justify-between gap-3">
         <span className="truncate text-[13px] text-zinc-100">{track.label}</span>
         {track.phase ? (
-          <span className="rounded-full border border-white/8 bg-white/6 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-zinc-400">
+          <Badge className="track-phase-badge" variant="secondary">
             {track.phase}
-          </span>
+          </Badge>
         ) : null}
       </span>
     </label>
@@ -66,7 +67,7 @@ function TraitCard({ onToggleTrack, selectedTrackIdSet, trait }: TraitCardProps)
           {trait.icon ? <img alt={trait.name} className="size-10 rounded-xl border border-white/12 bg-black/25 p-1" src={trait.icon} /> : null}
           <div>
             <CardTitle className="text-base text-white">{trait.name}</CardTitle>
-            <p className="text-[11px] uppercase tracking-[0.2em] text-zinc-400">Trait Tracks</p>
+            <CardDescription className="trait-card-description">Trait Tracks</CardDescription>
           </div>
         </div>
       </CardHeader>

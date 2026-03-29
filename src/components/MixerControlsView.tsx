@@ -2,6 +2,7 @@ import { useId } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import type { MixerControlsViewModel } from './mixerControls.selectors';
@@ -48,11 +49,12 @@ export default function MixerControlsView({
             </Button>
           </div>
           {isLoading ? (
-            <div className="deck-status" role="status">
-              Loading Tracks...
-            </div>
+            <Alert className="deck-status" role="status">
+              <AlertDescription>Loading Tracks...</AlertDescription>
+            </Alert>
           ) : null}
         </section>
+        <Separator className="deck-divider" decorative={false} />
 
         <section className="deck-section">
           <div className="deck-section-heading">
@@ -100,6 +102,7 @@ export default function MixerControlsView({
             </div>
           </div>
         </section>
+        <Separator className="deck-divider" decorative={false} />
 
         <section className="deck-section">
           <div className="deck-section-heading">

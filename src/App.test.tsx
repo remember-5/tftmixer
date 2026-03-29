@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import App from './App';
 import type { AudioMixerPlayer } from '@/types/mixer';
@@ -79,5 +79,14 @@ describe('App', () => {
     fireEvent.click(screen.getByRole('switch', { name: 'Repeat' }));
 
     expect(fakePlayer.setRepeatEnabled).toHaveBeenCalledWith(true);
+  });
+
+  it('renders semantic separators between control deck sections', () => {
+    const fakePlayer = createFakePlayer();
+    render(<App player={fakePlayer} />);
+
+    const commandDeck = screen.getByRole('complementary', { name: 'Mixer command deck' });
+
+    expect(within(commandDeck).getAllByRole('separator')).toHaveLength(2);
   });
 });

@@ -157,11 +157,18 @@
   padding: 1rem 0.45rem 1.2rem;
 }
 
+.hero-shell {
+  display: block;
+}
+
 .hero-panel {
   border: 1px solid var(--surface-border-subtle);
   border-radius: var(--radius-lg);
   background: var(--surface-panel-hero);
   box-shadow: 0 16px 36px rgb(3 8 22 / 0.34);
+}
+
+.hero-panel-content {
   padding: 1.1rem 1rem;
 }
 
@@ -196,15 +203,11 @@
 
 .hero-badge {
   align-self: flex-start;
-  border: 1px solid color-mix(in oklch, var(--accent) 42%, white 58%);
-  border-radius: 999px;
+  border-color: color-mix(in oklch, var(--accent) 42%, white 58%);
   background: color-mix(in oklch, var(--accent) 18%, transparent);
   color: color-mix(in oklch, var(--accent) 40%, white 60%);
   font-size: 0.78rem;
-  font-weight: 600;
   letter-spacing: 0.07em;
-  padding: 0.36rem 0.68rem;
-  text-transform: uppercase;
 }
 
 .trait-container {
@@ -277,6 +280,10 @@
   padding: 0.86rem;
 }
 
+.deck-divider {
+  background: rgb(224 238 255 / 0.12);
+}
+
 .deck-section-heading {
   display: flex;
   flex-direction: column;
@@ -345,12 +352,14 @@
 
 .deck-status {
   border: 1px solid rgb(16 185 129 / 0.35);
-  border-radius: var(--radius-md);
   background: rgb(16 185 129 / 0.14);
   color: rgb(215 255 238);
   font-size: 0.8rem;
   font-weight: 500;
-  padding: 0.54rem 0.68rem;
+}
+
+.deck-status [data-slot=alert-description] {
+  color: inherit;
 }
 
 .deck-inline-alert {
@@ -367,32 +376,33 @@
 }
 
 .preset-shelf-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.72rem;
   border: 1px solid var(--surface-border-subtle);
   border-radius: var(--radius-lg);
   background: var(--surface-panel-soft);
   box-shadow: 0 16px 34px rgb(2 6 18 / 0.32);
-  padding: 0.86rem;
 }
 
 .preset-shelf-header {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+  padding-bottom: 0.5rem;
 }
 
-.preset-shelf-header h3 {
+.preset-shelf-header [data-slot=card-title] {
   color: rgb(248 251 255 / 0.99);
   font-size: 0.98rem;
 }
 
-.preset-shelf-header p {
+.preset-shelf-header [data-slot=card-description] {
   color: rgb(196 209 231 / 0.9);
   font-size: 0.8rem;
   line-height: 1.4;
   margin: 0;
+}
+
+.preset-shelf-content {
+  padding: 0 0.86rem 0.86rem;
 }
 
 .command-deck-layout {
@@ -425,6 +435,7 @@
   color: rgb(203 214 234 / 0.9);
   font-size: 0.75rem;
   letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 .preset-chip-active .preset-chip-meta {
@@ -451,7 +462,7 @@
     padding-inline: 0.7rem;
   }
 
-  .hero-panel {
+  .hero-panel-content {
     padding: 1.3rem 1.25rem;
   }
 }

@@ -106,7 +106,7 @@ export function createAudioMixerPlayer({
 
       try {
         trackState.source.stop();
-      } catch (error) {
+      } catch {
         // Sources can already be finished when we stop or reset the session.
       }
     }
