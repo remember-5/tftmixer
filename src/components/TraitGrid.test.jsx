@@ -79,4 +79,31 @@ describe('TraitGrid', () => {
 
     expect(checkbox).toBeChecked();
   });
+
+  it('marks the trait card as active when one of its tracks is selected', () => {
+    const store = createMixerStore({ player: createFakePlayer() });
+    store.setState({ selectedTrackIds: ['kda_late_main'] });
+
+    render(
+      <MixerStoreProvider store={store}>
+        <TraitGrid traits={traits} />
+      </MixerStoreProvider>
+    );
+
+    expect(screen.getByTestId('trait-card-kda')).toHaveAttribute('data-selected', 'true');
+  });
+
+  it('marks the selected track row as active after it is toggled', () => {
+    const store = createMixerStore({ player: createFakePlayer() });
+
+    render(
+      <MixerStoreProvider store={store}>
+        <TraitGrid traits={traits} />
+      </MixerStoreProvider>
+    );
+
+    fireEvent.click(screen.getByRole('checkbox', { name: 'KDA early_main' }));
+
+    expect(screen.getByTestId('track-row-kda_early_main')).toHaveAttribute('data-selected', 'true');
+  });
 });
