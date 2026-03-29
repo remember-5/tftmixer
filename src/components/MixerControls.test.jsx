@@ -97,12 +97,12 @@ describe('MixerControls', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Play Selected Tracks' }));
     fireEvent.click(screen.getByRole('button', { name: 'Stop All Music' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Random Select Tracks' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Random Select Early Tracks' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Random Select Late Tracks' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Clear All Selections' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Generate Shareable Link' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Tweet Mix' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Random All' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Random Early' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Random Late' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Clear' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Copy Link' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Post to X' }));
     fireEvent.click(screen.getByRole('switch', { name: 'Real Time Add/Remove Tracks (longer load on play)' }));
     fireEvent.click(screen.getByRole('switch', { name: 'Repeat' }));
 

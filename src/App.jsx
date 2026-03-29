@@ -1,4 +1,3 @@
-import Credits from './components/Credits.jsx';
 import MixerControls from './components/MixerControls.jsx';
 import PresetList from './components/PresetList.jsx';
 import TraitGrid from './components/TraitGrid.jsx';
@@ -38,8 +37,6 @@ function MixerPage() {
             </section>
           </section>
         </div>
-
-        <Credits />
       </main>
     </div>
   );

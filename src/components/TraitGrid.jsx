@@ -12,22 +12,25 @@ function TraitCard({ trait, selectedTrackIdSet, toggleTrack }) {
       data-selected={traitSelected ? 'true' : 'false'}
       data-testid={`trait-card-${trait.id}`}
     >
-      <CardHeader className="gap-3 border-b border-white/8 pb-4">
-        <div className="flex items-center gap-3">
-          {trait.icon ? <img alt={trait.name} className="size-12 rounded-2xl border border-white/12 bg-black/25 p-1" src={trait.icon} /> : null}
+      <CardHeader className="gap-2 border-b border-white/8 px-4 pb-3">
+        <div className="flex items-center gap-2.5">
+          {trait.icon ? <img alt={trait.name} className="size-10 rounded-xl border border-white/12 bg-black/25 p-1" src={trait.icon} /> : null}
           <div>
-            <CardTitle className="text-lg text-white">{trait.name}</CardTitle>
-            <p className="text-xs uppercase tracking-[0.24em] text-zinc-400">Trait Tracks</p>
+            <CardTitle className="text-base text-white">{trait.name}</CardTitle>
+            <p className="text-[11px] uppercase tracking-[0.2em] text-zinc-400">Trait Tracks</p>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="space-y-1.5 px-4">
         {trait.tracks.map((entry) => {
           const trackSelected = selectedTrackIdSet.has(entry.id);
 
           return (
             <label
-              className={cn('track-row rounded-xl border border-white/8 bg-black/20 px-3 py-2 transition hover:border-white/16 hover:bg-white/8', trackSelected && 'track-row-selected')}
+              className={cn(
+                'track-row rounded-lg border border-white/8 bg-black/20 px-2.5 py-1.5 transition hover:border-white/16 hover:bg-white/8',
+                trackSelected && 'track-row-selected'
+              )}
               data-selected={trackSelected ? 'true' : 'false'}
               data-testid={`track-row-${entry.id}`}
               key={entry.id}
@@ -38,9 +41,9 @@ function TraitCard({ trait, selectedTrackIdSet, toggleTrack }) {
                 onCheckedChange={() => toggleTrack(entry.id)}
               />
               <span className="flex min-w-0 flex-1 items-center justify-between gap-3">
-                <span className="truncate text-sm text-zinc-100">{entry.label}</span>
+                <span className="truncate text-[13px] text-zinc-100">{entry.label}</span>
                 {entry.phase ? (
-                  <span className="rounded-full border border-white/8 bg-white/6 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
+                  <span className="rounded-full border border-white/8 bg-white/6 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.14em] text-zinc-400">
                     {entry.phase}
                   </span>
                 ) : null}

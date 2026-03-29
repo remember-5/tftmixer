@@ -102,24 +102,24 @@ export default function MixerControls() {
           </div>
           <div className="deck-actions deck-actions-utility">
             <Button onClick={() => randomizeSelection()} type="button" variant="outline">
-              Random Select Tracks
+              Random All
             </Button>
             <Button onClick={() => randomizeSelection('early')} type="button" variant="outline">
-              Random Select Early Tracks
+              Random Early
             </Button>
             <Button onClick={() => randomizeSelection('late')} type="button" variant="outline">
-              Random Select Late Tracks
+              Random Late
             </Button>
             <Button onClick={clearSelection} type="button" variant="secondary">
-              Clear All Selections
+              Clear
             </Button>
             <Button onClick={copyShareLink} type="button" variant="outline">
-              Generate Shareable Link
+              Copy Link
             </Button>
             <Button onClick={openTweetComposer} type="button" variant="secondary">
-              Tweet Mix
+              Post to X
             </Button>
-            </div>
+          </div>
           {copyNoticeVisible ? (
             <Alert className="deck-inline-alert">
               <AlertTitle>URL Copied to Clipboard</AlertTitle>
