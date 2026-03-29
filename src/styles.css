@@ -167,15 +167,11 @@
   gap: 0.75rem;
 }
 
-.button-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
 .control-deck {
   border: 1px solid rgb(255 255 255 / 0.12);
   background: rgb(9 14 28 / 0.72);
+  box-shadow: 0 24px 50px rgb(2 6 20 / 0.42);
+  backdrop-filter: blur(10px);
 }
 
 .control-deck-content,
@@ -189,6 +185,104 @@
 .deck-actions-primary {
   display: grid;
   gap: 0.75rem;
+}
+
+.deck-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 0.9rem;
+  background: linear-gradient(165deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.03));
+  padding: 0.95rem;
+}
+
+.deck-section-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.deck-section-heading h3 {
+  color: rgb(250 252 255);
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+
+.deck-section-heading p {
+  color: rgb(208 218 236 / 0.92);
+  font-size: 0.82rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.deck-slider-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 0.7rem;
+  background: rgb(6 10 20 / 0.42);
+  padding: 0.75rem;
+}
+
+.deck-slider-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: center;
+  color: rgb(233 238 248);
+  font-size: 0.84rem;
+}
+
+.deck-toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.9rem;
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 0.7rem;
+  background: rgb(6 10 20 / 0.34);
+  padding: 0.72rem;
+}
+
+.deck-toggle-row > span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.deck-toggle-row strong {
+  color: rgb(245 248 255);
+  font-size: 0.88rem;
+}
+
+.deck-toggle-row small {
+  color: rgb(187 199 221 / 0.92);
+  font-size: 0.75rem;
+  line-height: 1.32;
+}
+
+.deck-status {
+  border: 1px solid rgb(16 185 129 / 0.35);
+  border-radius: 0.7rem;
+  background: rgb(16 185 129 / 0.14);
+  color: rgb(215 255 238);
+  font-size: 0.84rem;
+  padding: 0.62rem 0.78rem;
+}
+
+.deck-inline-alert {
+  border: 1px solid rgb(16 185 129 / 0.3);
+  background: rgb(16 185 129 / 0.11);
+  color: rgb(232 255 246);
+}
+
+@media (min-width: 640px) {
+  .deck-actions-utility {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .community-presets {

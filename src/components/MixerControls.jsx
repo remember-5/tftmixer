@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,6 +21,10 @@ export default function MixerControls() {
   const setVolume = useMixerStore((state) => state.setVolume);
   const stopPlayback = useMixerStore((state) => state.stopPlayback);
   const openTweetComposer = useMixerStore((state) => state.openTweetComposer);
+  const realtimeLabelId = useId();
+  const realtimeDescriptionId = useId();
+  const repeatLabelId = useId();
+  const repeatDescriptionId = useId();
 
   return (
     <Card className="control-deck">
@@ -70,21 +75,22 @@ export default function MixerControls() {
           <div className="deck-toggle-stack">
             <label className="deck-toggle-row">
               <span>
-                <strong>Realtime</strong>
-                <small>Keep the session open while toggling tracks.</small>
+                <strong id={realtimeLabelId}>Real Time Add/Remove Tracks (longer load on play)</strong>
+                <small id={realtimeDescriptionId}>Keep the session open while toggling tracks.</small>
               </span>
               <Switch
-                aria-label="Real Time Add/Remove Tracks (longer load on play)"
+                aria-describedby={realtimeDescriptionId}
+                aria-labelledby={realtimeLabelId}
                 checked={isRealtimeEnabled}
                 onCheckedChange={setRealtimeEnabled}
               />
             </label>
             <label className="deck-toggle-row">
               <span>
-                <strong>Repeat</strong>
-                <small>Loop the active loaded session.</small>
+                <strong id={repeatLabelId}>Repeat</strong>
+                <small id={repeatDescriptionId}>Loop the active loaded session.</small>
               </span>
-              <Switch aria-label="Repeat" checked={isRepeatEnabled} onCheckedChange={setRepeatEnabled} />
+              <Switch aria-describedby={repeatDescriptionId} aria-labelledby={repeatLabelId} checked={isRepeatEnabled} onCheckedChange={setRepeatEnabled} />
             </label>
           </div>
         </section>
