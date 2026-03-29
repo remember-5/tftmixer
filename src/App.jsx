@@ -1,4 +1,3 @@
-import { Separator } from '@/components/ui/separator';
 import Credits from './components/Credits.jsx';
 import MixerControls from './components/MixerControls.jsx';
 import PresetList from './components/PresetList.jsx';
@@ -13,31 +12,27 @@ function MixerPage() {
     <div className="page-shell">
       <div className="page-aurora" />
       <div className="page-scrim" />
-      <main className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-        <section className="rounded-[28px] border border-white/12 bg-black/35 px-5 py-6 shadow-2xl backdrop-blur-xl sm:px-8 sm:py-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.32em] text-emerald-300/80">Remix Rumble Mixer</p>
-          <div className="mt-3 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl space-y-3">
-              <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-                TFT Remix Rumble Music Mixer
-              </h1>
-              <h2 className="max-w-2xl text-base leading-7 text-zinc-300 sm:text-lg">
-                Select tracks to play. Layer multiple tracks together to create unique combinations.
-              </h2>
+      <main className="page-frame">
+        <section className="hero-panel">
+          <p className="hero-kicker">Remix Rumble Mixer</p>
+          <div className="hero-copy">
+            <div>
+              <h1>TFT Remix Rumble Music Mixer</h1>
+              <h2>Select tracks to play. Layer multiple tracks together to create unique combinations.</h2>
             </div>
-            <div className="rounded-full border border-white/10 bg-white/6 px-4 py-2 text-sm text-zinc-200">
-              Live layering, presets, share links
-            </div>
+            <div className="hero-badge">Live layering, presets, share links</div>
           </div>
         </section>
 
-        <MixerControls />
+        <div className="command-deck-layout">
+          <aside className="command-deck-column">
+            <MixerControls />
+          </aside>
 
-        <Separator className="bg-white/10" />
-
-        <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_320px]">
-          <TraitGrid traits={traits} />
-          <PresetList presets={presets} />
+          <section className="workspace-column">
+            <PresetList presets={presets} />
+            <TraitGrid traits={traits} />
+          </section>
         </div>
 
         <Credits />

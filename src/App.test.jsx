@@ -37,6 +37,18 @@ describe('App', () => {
     expect(screen.queryByText('We are moving')).not.toBeInTheDocument();
   });
 
+  it('renders the preset shelf before the trait grid workspace', () => {
+    const fakePlayer = createFakePlayer();
+    render(<App player={fakePlayer} />);
+
+    const presetHeading = screen.getByText('Reddit Community Presets');
+    const firstTraitHeading = screen.getByText('KDA');
+
+    expect(
+      presetHeading.compareDocumentPosition(firstTraitHeading) & Node.DOCUMENT_POSITION_FOLLOWING
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+  });
+
   it('restores selected tracks from the selectedTracks query string', () => {
     const fakePlayer = createFakePlayer();
     window.history.pushState({}, '', '/?selectedTracks=kda_late_main,punk_late_main.');
