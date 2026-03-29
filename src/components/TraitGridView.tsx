@@ -1,3 +1,4 @@
+import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
@@ -29,7 +30,7 @@ function TrackRow({ onToggleTrack, selectedTrackIdSet, track, traitName }: Track
   return (
     <label
       className={cn(
-        'track-row rounded-lg border border-white/8 bg-black/20 px-2.5 py-1.5 transition hover:border-white/16 hover:bg-white/8',
+        'track-row',
         trackSelected && 'track-row-selected'
       )}
       data-selected={trackSelected ? 'true' : 'false'}
@@ -38,32 +39,43 @@ function TrackRow({ onToggleTrack, selectedTrackIdSet, track, traitName }: Track
       <Checkbox
         aria-label={`${traitName} ${track.label}`}
         checked={trackSelected}
+        className="track-row-checkbox"
         onCheckedChange={() => onToggleTrack(track.id)}
       />
-      <span className="truncate text-[13px] text-zinc-100">{track.label}</span>
+      <span className="track-row-copy">
+        <span className="track-row-label">{track.label}</span>
+      </span>
     </label>
   );
 }
 
 function TraitCard({ onToggleTrack, selectedTrackIdSet, trait }: TraitCardProps) {
   const traitSelected = isTraitSelected(trait, selectedTrackIdSet);
+  const selectedCount = trait.tracks.filter((track: Track) => isTrackSelected(track.id, selectedTrackIdSet)).length;
 
   return (
     <Card
-      className={cn('trait-card border-white/10 bg-white/6 text-white shadow-xl backdrop-blur-sm', traitSelected && 'trait-card-selected')}
+      className={cn('trait-card', traitSelected && 'trait-card-selected')}
       data-selected={traitSelected ? 'true' : 'false'}
       data-testid={`trait-card-${trait.id}`}
     >
-      <CardHeader className="gap-2 border-b border-white/8 px-4 pb-3">
-        <div className="flex items-center gap-2.5">
-          {trait.icon ? <img alt={trait.name} className="size-10 rounded-xl border border-white/12 bg-black/25 p-1" src={trait.icon} /> : null}
-          <div>
-            <CardTitle className="text-base text-white">{trait.name}</CardTitle>
-            <CardDescription className="trait-card-description">Trait Tracks</CardDescription>
+      <CardHeader className="trait-card-header">
+        <div className="trait-card-heading">
+          {trait.icon ? (
+            <span className="trait-card-icon-shell">
+              <img alt={trait.name} className="trait-card-icon" src={trait.icon} />
+            </span>
+          ) : null}
+          <div className="trait-card-copy">
+            <CardTitle className="trait-card-title">{trait.name}</CardTitle>
+            <CardDescription className="trait-card-description">{trait.tracks.length} trait tracks</CardDescription>
           </div>
         </div>
+        <Badge className="trait-card-badge" variant="secondary">
+          {selectedCount}/{trait.tracks.length}
+        </Badge>
       </CardHeader>
-      <CardContent className="space-y-1.5 px-4">
+      <CardContent className="trait-card-content">
         {trait.tracks.map((track: Track) => (
           <TrackRow
             key={track.id}
@@ -80,7 +92,7 @@ function TraitCard({ onToggleTrack, selectedTrackIdSet, trait }: TraitCardProps)
 
 export default function TraitGridView({ onToggleTrack, selectedTrackIdSet, traits }: TraitGridViewProps) {
   return (
-    <div className="trait-container">
+    <div className="trait-container" data-card-width="fluid-5-up" data-density="dense" data-layout="compact-5-up">
       {traits.map((trait: Trait) => (
         <TraitCard key={trait.id} onToggleTrack={onToggleTrack} selectedTrackIdSet={selectedTrackIdSet} trait={trait} />
       ))}

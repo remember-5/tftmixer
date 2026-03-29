@@ -1,5 +1,4 @@
-import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
+import { useShallow } from 'zustand/react/shallow';
 import MixerControls from './components/MixerControls';
 import PresetList from './components/PresetList';
 import TraitGrid from './components/TraitGrid';
@@ -7,45 +6,43 @@ import { MixerStoreProvider, useMixerStore } from './store/MixerStoreContext';
 import type { AudioMixerPlayer } from '@/types/mixer';
 
 function MixerPage() {
-  const presets = useMixerStore((state) => state.presets);
-  const traits = useMixerStore((state) => state.traits);
+  const { presets, traits } = useMixerStore(
+    useShallow((state) => ({
+      presets: state.presets,
+      traits: state.traits
+    }))
+  );
 
   return (
     <div className="page-shell">
       <div className="page-aurora" />
       <div className="page-scrim" />
       <main className="page-frame">
-        <section className="hero-shell">
-          <Card className="hero-panel gap-0 py-0">
-            <div className="hero-panel-content">
-              <p className="hero-kicker">Remix Rumble Mixer</p>
-              <div className="hero-copy">
-                <div>
-                  <h1>TFT Remix Rumble Music Mixer</h1>
-                  <h2>Select tracks to play. Layer multiple tracks together to create unique combinations.</h2>
-                </div>
-                <Badge className="hero-badge" variant="secondary">
-                  Live layering, presets, share links
-                </Badge>
-              </div>
-            </div>
-          </Card>
+        <section aria-label="Mixer operations bar" className="operations-shell" data-density="compact">
+          <MixerControls />
         </section>
 
-        <div className="command-deck-layout">
-          <aside aria-label="Mixer command deck" className="command-deck-column">
-            <MixerControls />
-          </aside>
-
-          <section aria-label="Mixer workspace" className="workspace-column">
-            <section aria-label="Preset workspace" className="workspace-presets">
-              <PresetList presets={presets} />
-            </section>
-            <section aria-label="Trait grid workspace" className="workspace-traits">
+        <section aria-label="Mixer board" className="mix-board">
+          <section aria-label="Sound blocks grid" className="workspace-panel workspace-traits">
+            <div className="workspace-panel-heading">
+              <p className="workspace-kicker">Sound Blocks</p>
+              <h2>Trait Modules</h2>
+            </div>
+            <div className="workspace-panel-body workspace-panel-body-scroll">
               <TraitGrid traits={traits} />
-            </section>
+            </div>
           </section>
-        </div>
+
+          <section aria-label="Community preset deck" className="workspace-panel workspace-presets" data-panel-width="wide">
+            <div className="workspace-panel-heading">
+              <p className="workspace-kicker">Preset Deck</p>
+              <h2>Reddit Community Presets</h2>
+            </div>
+            <div className="workspace-panel-body">
+              <PresetList presets={presets} />
+            </div>
+          </section>
+        </section>
       </main>
     </div>
   );
