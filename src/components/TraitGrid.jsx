@@ -3,10 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { useMixerStore } from '../store/MixerStoreContext.jsx';
 
-function TraitCard({ trait }) {
-  const selectedTrackIds = useMixerStore((state) => state.selectedTrackIds);
-  const toggleTrack = useMixerStore((state) => state.toggleTrack);
-  const selectedTrackIdSet = new Set(selectedTrackIds);
+function TraitCard({ trait, selectedTrackIdSet, toggleTrack }) {
   const traitSelected = trait.tracks.some((entry) => selectedTrackIdSet.has(entry.id));
 
   return (
@@ -57,10 +54,14 @@ function TraitCard({ trait }) {
 }
 
 export default function TraitGrid({ traits }) {
+  const selectedTrackIds = useMixerStore((state) => state.selectedTrackIds);
+  const toggleTrack = useMixerStore((state) => state.toggleTrack);
+  const selectedTrackIdSet = new Set(selectedTrackIds);
+
   return (
     <div className="trait-container">
       {traits.map((trait) => (
-        <TraitCard key={trait.id} trait={trait} />
+        <TraitCard key={trait.id} selectedTrackIdSet={selectedTrackIdSet} toggleTrack={toggleTrack} trait={trait} />
       ))}
     </div>
   );

@@ -90,7 +90,10 @@ describe('TraitGrid', () => {
       </MixerStoreProvider>
     );
 
-    expect(screen.getByTestId('trait-card-kda')).toHaveAttribute('data-selected', 'true');
+    const traitCard = screen.getByTestId('trait-card-kda');
+
+    expect(traitCard).toHaveAttribute('data-selected', 'true');
+    expect(traitCard).toHaveClass('trait-card-selected');
   });
 
   it('marks the selected track row as active after it is toggled', () => {
@@ -102,8 +105,14 @@ describe('TraitGrid', () => {
       </MixerStoreProvider>
     );
 
+    const trackRow = screen.getByTestId('track-row-kda_early_main');
+
+    expect(trackRow).toHaveAttribute('data-selected', 'false');
+    expect(trackRow).not.toHaveClass('track-row-selected');
+
     fireEvent.click(screen.getByRole('checkbox', { name: 'KDA early_main' }));
 
-    expect(screen.getByTestId('track-row-kda_early_main')).toHaveAttribute('data-selected', 'true');
+    expect(trackRow).toHaveAttribute('data-selected', 'true');
+    expect(trackRow).toHaveClass('track-row-selected');
   });
 });
