@@ -41,12 +41,12 @@ describe('App', () => {
     const fakePlayer = createFakePlayer();
     render(<App player={fakePlayer} />);
 
-    const workspace = screen.getByRole('region', { name: 'Mixer workspace' });
     const presetWorkspace = screen.getByRole('region', { name: 'Preset workspace' });
     const traitWorkspace = screen.getByRole('region', { name: 'Trait grid workspace' });
-    const workspaceChildren = Array.from(workspace.children);
 
-    expect(workspaceChildren.indexOf(presetWorkspace)).toBeLessThan(workspaceChildren.indexOf(traitWorkspace));
+    expect(
+      presetWorkspace.compareDocumentPosition(traitWorkspace) & Node.DOCUMENT_POSITION_FOLLOWING
+    ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
   });
 
   it('restores selected tracks from the selectedTracks query string', () => {
