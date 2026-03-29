@@ -173,6 +173,24 @@
   gap: 0.75rem;
 }
 
+.control-deck {
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background: rgb(9 14 28 / 0.72);
+}
+
+.control-deck-content,
+.deck-toggle-stack,
+.deck-actions-utility {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.deck-actions-primary {
+  display: grid;
+  gap: 0.75rem;
+}
+
 .community-presets {
   width: 100%;
 }

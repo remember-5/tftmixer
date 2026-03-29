@@ -53,6 +53,19 @@ describe('MixerControls', () => {
     expect(screen.getAllByRole('status')).not.toHaveLength(0);
   });
 
+  it('renders grouped Playback, Session, and Utilities sections', () => {
+    const store = createMixerStore({ player: createFakePlayer() });
+    store.setState({ copyNoticeVisible: true, isLoading: true });
+
+    renderWithStore(store);
+
+    expect(screen.getByRole('heading', { name: 'Playback' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Session' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Utilities' })).toBeInTheDocument();
+    expect(screen.getByText('Loading Tracks...')).toBeInTheDocument();
+    expect(screen.getByText('URL Copied to Clipboard')).toBeInTheDocument();
+  });
+
   it('routes user actions through the mixer store', async () => {
     const player = createFakePlayer();
     const clipboard = {
