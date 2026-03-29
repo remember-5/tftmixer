@@ -12,6 +12,7 @@ pnpm dev
 ## Verification
 
 ```bash
+pnpm typecheck
 pnpm test
 pnpm build
 ```
